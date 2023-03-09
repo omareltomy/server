@@ -14,8 +14,15 @@ const io = new Server(server, {
   },
 });
 
+let connectedUsers = 0;
+
 io.on("connection", (socket) => {
-  console.log(`User ${socket.id} connected`);
+  // console.log(`User ${socket.id} connected`);
+  connectedUsers++;
+
+  // Emit updated user count to all clients
+  io.emit("userCount", connectedUsers);
+
   socket.on("play", () => {
     io.emit("play");
   });
@@ -30,12 +37,16 @@ io.on("connection", (socket) => {
     io.emit("changeUrl", data);
   });
   socket.on("disconnect", () => {
-    console.log(`User ${socket.id} disconnected`);
+    // console.log(`User ${socket.id} disconnected`);
+    connectedUsers--;
+
+    // Emit updated user count to all clients
+    io.emit("userCount", connectedUsers);
   });
 });
 
 // Set the port number for the server to listen on
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
