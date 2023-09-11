@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
     // console.log(`User ${socket.id} disconnected`);
     connectedUsers--;
 
-    // Emit updated user count to all clients
+    // Emit updated user count o all clients
     io.emit("userCount", connectedUsers);
   });
 });
