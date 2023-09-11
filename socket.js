@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
     io.emit("changeUrl", data);
   });
   socket.on("disconnect", () => {
-    // console.log(`User ${socket.id} disconnected`);
+    // console.log(`User $socket.id} disconnected`);
     connectedUsers--;
 
     // Emit updated user count o all clients
